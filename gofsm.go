@@ -52,7 +52,7 @@ func (f *FSM) HasState(name string) bool {
 func (f *FSM) Change(stateName string) {
 
 	if f.State != "" && f.StateDirectory[f.State].Exit != nil {
-		f.StateDirectory[f.State].Exit()
+		go f.StateDirectory[f.State].Exit()
 	}
 
 	_, hasKey := f.StateDirectory[stateName]
@@ -64,7 +64,7 @@ func (f *FSM) Change(stateName string) {
 	f.State = stateName
 
 	if f.State != "" && f.StateDirectory[f.State].Enter != nil {
-		f.StateDirectory[f.State].Enter()
+		go f.StateDirectory[f.State].Enter()
 	}
 
 }
